@@ -9,14 +9,10 @@ int main(void)
 {
 	 int i;
 
-    // Print single digit numbers from 0 to 9
-    for (i = 0; i < 10; i++) {
-        putchar(i + '0');
-    }
+    for (i = 0; i < 10; i++)
+        printf("%d", i);
 
-    // Print new line
-    putchar('\n');
-
-    return 0;
+    printf("\n");
+	return (0);
 }
 
