@@ -1,19 +1,19 @@
-int main() {
-    char ch;
 
-    // Print lowercase alphabet
-    for (ch = 'a'; ch <= 'z'; ch++) {
-        putchar(ch);
-    }
+#include <stdio.h>
 
-    // Print uppercase alphabet
-    for (ch = 'A'; ch <= 'Z'; ch++) {
-        putchar(ch);
-    }
+/**
+ * main - prints the alphabet in lowercase, and then in uppercase,
+ * followed by a new line
+ * Return: Always 0 (Success)
+ */
+int main(void)
+{
+	int ch;
 
-    // Print new line
-    putchar('\n');
-
-    return 0;
+	for (ch = 'a'; ch <= 'z'; ch++)
+		putchar(ch);
+	for (ch = 'A'; ch <= 'Z'; ch++)
+		putchar(ch);
+	putchar('\n');
+	return (0);
 }
-
