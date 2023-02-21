@@ -1,37 +1,51 @@
 #include "main.h"
-
 /**
- * times_table - prints the 9 times table starting with 0
- *
- * Return: void
- */
+  * times_table - The entry point of the function
+  * @void: The function takes no parameters
+  *
+  * Description: This is a function that prints the 9 times table, starting
+  * with 0.
+  */
 void times_table(void)
 {
-    int i, j;
+	int firstnum, secondnum, multiplication_result;
 
-    for (i = 0; i <= 9; i++)
-    {
-        for (j = 0; j <= 9; j++)
-        {
-            int result = i * j;
-            if (j == 0)
-            {
-                printf("%d", result);
-            }
-            else if (result < 10)
-            {
-                printf(",   %d", result);
-            }
-            else if (result < 100)
-            {
-                printf(",  %d", result);
-            }
-            else
-            {
-                printf(", %d", result);
-            }
-        }
-        printf("\n");
-    }
+	firstnum = 0;
+	while (firstnum < 10)
+	{
+		secondnum = 0;
+		while (secondnum < 10)
+		{
+			multiplication_result = firstnum * secondnum;
+			if (secondnum != 9)
+			{
+				if ((multiplication_result / 10) == 0)
+				{
+					_putchar(multiplication_result + '0');
+					_putchar(',');
+					_putchar(' ');
+				}
+				else
+				{
+					_putchar((multiplication_result / 10) + '0');
+					_putchar((multiplication_result % 10) + '0');
+					_putchar(',');
+					_putchar(' ');
+				}
+			}
+			else
+			{
+				if ((multiplication_result / 10) == 0)
+					_putchar(multiplication_result + '0');
+				else
+				{
+					_putchar((multiplication_result / 10) + '0');
+					_putchar((multiplication_result % 10) + '0');
+				}
+			}
+			secondnum++;
+		}
+		firstnum++;
+		_putchar('\n')
+	}
 }
-
