@@ -2,20 +2,20 @@
 #include "main.h"
 
 /**
- * times_table - function declaration
+ * times_teble - function declaration
  * Description: print  9 times table
  * Return: void
  */
 
-void times_table(void);
+void times_teble(void);
 
 /**
- * times_table - function definition
+ * times_teble - function definition
  * Description: print entire 9 times table
  * Return: has no return value
  */
 
-void times_table(void)
+void times_teble(void)
 {
 	int row;
 	int column;
@@ -50,4 +50,4 @@ void times_table(void)
 		}
 		_putchar('\n');
 	}
-}
+i}
