@@ -1,6 +1,4 @@
-#include <stdio.h>
-
-void times_table(void);
+#include "myheader.h"
 
 int main(void)
 {
