@@ -1,53 +1,30 @@
-#include <stdio.h>
 #include "main.h"
 
 /**
- * times_teble - function declaration
- * Description: print  9 times table
- * Return: void
+ * times_table - Prints the 9 times table, starting with 0.
  */
-
-void times_teble(void);
-
-/**
- * times_teble - function definition
- * Description: print entire 9 times table
- * Return: has no return value
- */
-
-void times_teble(void)
+void times_table(void)
 {
-	int row;
-	int column;
+	int num, mult, prod;
 
-	for (row = 0; row < 10; row++)
+	for (num = 0; num <= 9; num++)
 	{
-		for (column = 0; column < 10; column++)
+		_putchar('0');
+
+		for (mult = 1; mult <= 9; mult++)
 		{
-			int product = column * row;
-			int tens_position = product / 10;
-			int ones_position = product % 10;
+			_putchar(',');
+			_putchar(' ');
 
-			if (column == 0)
-			{
-				_putchar('0');
-			}
-			else if (product < 10)
-			{
-				_putchar(',');
+			prod = num * mult;
+
+			if (prod <= 9)
 				_putchar(' ');
-				_putchar(' ');
-				_putchar(product + '0');
-			}
 			else
-			{
-				_putchar(',');
-				_putchar(' ');
-				_putchar(tens_position + '0');
-				_putchar((ones_position % 10) + '0');
-			}
+				_putchar((prod / 10) + '0');
 
+			_putchar((prod % 10) + '0');
 		}
 		_putchar('\n');
 	}
-i}
+}
