@@ -9,8 +9,9 @@ void _puts_recursion(char *s);
 
 /**
  * _puts_recursion - function definition
- * @s: thr string to recurse
- * Description: recurses through a string s
+ * @s: the string to recurse
+ *
+ * Description: Recurses through a string s.
  * Return: void
  */
 
@@ -25,4 +26,5 @@ void _puts_recursion(char *s)
 	{
 		_putchar('\n');
 	}
-}	
+}
+
