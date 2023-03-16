@@ -3,130 +3,127 @@
 #include <stdio.h>
 #include <ctype.h>
 
-void print_number(int *n);
-int *multiply(int *a, int *b);
-int *string_to_int_array(char *s, int len);
-int get_number_length(int *n);
-void shift_number_left(int *n, int shift);
-void free_number(int *n);
-
 /**
- * main - Entry point
- *
- * @argc: Number of arguments
- * @argv: Array of arguments
- *
- * Return: Always 0 (success)
- */
-int main(int argc, char **argv)
+* _is_zero - determines if any number is zero
+* @argv: argument vector.
+*
+* Return: no return.
+*/
+void _is_zero(char *argv[])
 {
-    int *a, *b, *c;
-    int len_a, len_b, len_c, i, j;
+	int i, isn1 = 1, isn2 = 1;
 
-    if (argc != 3)
-    {
-        printf("Error\n");
-        return (1);
-    }
-
-    /* Convert arguments to arrays of integers */
-    a = string_to_int_array(argv[1], len_a);
-    b = string_to_int_array(argv[2], len_b);
-
-    /* Multiply the two numbers */
-    c = multiply(a, b);
-    len_c = get_number_length(c);
-
-    /* Print the result */
-    if (len_c == 0)
-        putchar('0');
-    else
-        print_number(c);
-
-    putchar('\n');
-
-    /* Free memory */
-    free_number(a);
-    free_number(b);
-    free_number(c);
-
-    return (0);
+	for (i = 0; argv[1][i]; i++)
+		if (argv[1][i] != '0')
+		{
+			isn1 = 0;
+			break;
+		}
+	for (i = 0; argv[2][i]; i++)
+		if (argv[2][i] != '0')
+		{
+			isn2 = 0;
+			break;
+		}
+	if (isn1 == 1 || isn2 == 1)
+	{
+		printf("0\n");
+		exit(0);
+	}
 }
 
 /**
- * multiply - Multiplies two numbers represented as arrays of integers
+ * _initialize_array - set memery to zero in a new array
+ * @ar: char array.
+ * @lar: length of the char array.
  *
- * @a: First number
- * @b: Second number
- *
- * Return: Pointer to the resulting number
+ * Return: pointer of a char array.
  */
-int *multiply(int *a, int *b)
+
+char *_initialize_array(char *ar, int lar)
 {
-    int *c, *tmp;
-    int len_a, len_b, len_c, i, j, carry, product;
+	int i = 0;
 
-    len_a = get_number_length(a);
-    len_b = get_number_length(b);
-    len_c = len_a + len_b;
-
-    /* Allocate memory for the result */
-    c = malloc(sizeof(int) * (len_c + 1));
-    if (c == NULL)
-        return (NULL);
-
-    /* Initialize the result to 0 */
-    for (i = 0; i < len_c; i++)
-        c[i] = 0;
-
-    /* Multiply the numbers */
-    for (i = len_a - 1; i >= 0; i--)
-    {
-        carry = 0;
-        for (j = len_b - 1; j >= 0; j--)
-        {
-            product = a[i] * b[j] + carry + c[i + j + 1];
-            c[i + j + 1] = product % 10;
-            carry = product / 10;
-        }
-        c[i + j + 1] = carry;
-    }
-
-    /* Remove leading zeros */
-    while (len_c > 0 && c[0] == 0)
-    {
-        tmp = c;
-        c++;
-        free(tmp);
-        len_c--;
-    }
-
-    return (c);
+	for (i = 0; i < lar; i++)
+		ar[i] = '0';
+	ar[lar] = '\0';
+	return (ar);
 }
 
 /**
- * string_to_int_array - Converts a string of digits to an array of integers
- *
- * @s: String to convert
- * @len: Pointer to an integer to store the length of the resulting array
- *
- * Return: Pointer to the resulting array
- */
-int *string_to_int_array(char *s, int len)
+* _checknum - determines length of the number
+* and checks if number is in base 10.
+* @argv: arguments vector.
+* @n: row of the array.
+*
+* Return: length of the number.
+*/
+
+int _checknum(char *argv[], int n)
 {
-    int *a, i, j;
+	int ln;
 
-    len = 0;
-    while (s[len] != '\0')
-        len++;
-
-    /* Allocate memory for the array */
-    a = malloc(sizeof(int) * len);
-    if (a == NULL)
-        return (NULL);
-
+	for (ln = 0; argv[n][ln]; ln++)
+		if (!isdigit(argv[n][ln]))
+		{
+			printf("Error\n");
+			exit(98);
+		}
+	return (ln);
 }
 
+/**
+* main - Entry point.
+* program that multiplies two positive numbers.
+* @argc: number of arguments.
+* @argv: arguments vector.
+*
+* Return: 0 - success
+*/
+
+int main(int argc, char *argv[])
+{
+	int ln1, ln2, lnout, add, addl, i, j, k, ca;
+	char *nout;
+
+	if (argc != 3)
+		printf("Error\n"), exit(98);
+	ln1 = _checknum(argv, 1), ln2 = _checknum(argv, 2);
+	_is_zero(argv), lnout = ln1 + ln2, nout = malloc(lnout + 1);
+	if (nout == NULL)
+		printf("Error\n"), exit(98);
+	nout = _initialize_array(nout, lnout);
+	k = lnout - 1, i = ln1 - 1, j = ln2 - 1, ca = addl = 0;
+	for (; k >= 0; k--, i--)
+	{
+		if (i < 0)
+		{
+			if (addl > 0)
+			{
+				add = (nout[k] - '0') + addl;
+				if (add > 9)
+					nout[k - 1] = (add / 10) + '0';
+				nout[k] = (add % 10) + '0';
+			}
+			i = ln1 - 1, j--, addl = 0, ca++, k = lnout - (1 + ca);
+		}
+		if (j < 0)
+		{
+			if (nout[0] != '0')
+				break;
+			lnout--;
+			free(nout), nout = malloc(lnout + 1), nout = _initialize_array(nout, lnout);
+			k = lnout - 1, i = ln1 - 1, j = ln2 - 1, ca = addl = 0;
+		}
+		if (j >= 0)
+		{
+			add = ((argv[1][i] - '0') * (argv[2][j] - '0')) + (nout[k] - '0') + addl;
+			addl = add / 10, nout[k] = (add % 10) + '0';
+		}
+	}
+	printf("%s\n", nout);
+	return (0);
+}
 
 
 
