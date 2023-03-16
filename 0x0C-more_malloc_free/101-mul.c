@@ -1,127 +1,172 @@
-#include "main.h"
 #include <stdlib.h>
+#include "main.h"
+#include <string.h>
 #include <stdio.h>
-#include <ctype.h>
 
 /**
-* _is_zero - determines if any number is zero
-* @argv: argument vector.
-*
-* Return: no return.
-*/
-void _is_zero(char *argv[])
+ * print_error - prints an error message using _putchar
+ *
+ * Return: Nothing
+ */
+void print_error(void)
 {
-	int i, isn1 = 1, isn2 = 1;
+	int i;
+	char *err = "Error\n";
 
-	for (i = 0; argv[1][i]; i++)
-		if (argv[1][i] != '0')
-		{
-			isn1 = 0;
-			break;
-		}
-	for (i = 0; argv[2][i]; i++)
-		if (argv[2][i] != '0')
-		{
-			isn2 = 0;
-			break;
-		}
-	if (isn1 == 1 || isn2 == 1)
+	for (i = 0; i < 6; i++)
 	{
-		printf("0\n");
-		exit(0);
+		_putchar(err[i]);
+	}
+	exit(98);
+}
+
+/**
+ * is_num - checks if provided argument is a number or not
+ * @arg: given string
+ *
+ * Return: 1 if true, 0 if false
+ */
+int is_num(char *arg)
+{
+	int i, valid;
+
+	valid = 1;
+
+	for (i = 0; arg[i] != '\0'; i++)
+	{
+		if (arg[i] < '0' || arg[i] > '9')
+		{
+			valid = 0;
+			break;
+		}
+	}
+	return (valid);
+}
+
+/**
+ * mul - multiplies two numbers
+ * @num1: string reresented number getting multilied
+ * @num2: string number getting multiplied with @num1
+ * @result: pointer holding the result as integer
+ * @len1: length of string num1
+ * @len2: length of string num2
+ *
+ * Return: Nothing
+ */
+void mul(char *num1, int len1, char *num2, int len2, int *result)
+{
+	int i, j, k, l, n1, n2, c, temp;
+
+	k = 0, l = 0;
+
+	for (i = len1; i >= 0; i--)
+	{
+		c = 0;
+		n1 = atoi(&num1[i]);
+		l = 0;
+
+		for (j = len2; j >= 0; j--)
+		{
+			n2 = atoi(&num2[j]);
+			temp = n1 * n2 + result[k + l] + c;
+			c = temp / 10;
+			result[l + k] = temp % 10;
+			l++;
+		}
+		if (c > 0)
+			result[k + l] += c;
+		k++;
 	}
 }
 
 /**
- * _initialize_array - set memery to zero in a new array
- * @ar: char array.
- * @lar: length of the char array.
+ * to_str - turns a reversed int array into a char array
+ * @intarr: integer array
+ * @chrarr: char array to be augmented
+ * @nnums: number of items inside array
  *
- * Return: pointer of a char array.
+ * Return: nothing
  */
-
-char *_initialize_array(char *ar, int lar)
+void to_str(int *intarr, char *chrarr, int nnums)
 {
-	int i = 0;
+	int i, j;
 
-	for (i = 0; i < lar; i++)
-		ar[i] = '0';
-	ar[lar] = '\0';
-	return (ar);
+	j = 0;
+
+	for (i = nnums - 1; i >= 0; i++)
+	{
+		chrarr[j] = intarr[i] + '0';
+		j++;
+	}
+	chrarr[j] = '\0';
 }
 
 /**
-* _checknum - determines length of the number
-* and checks if number is in base 10.
-* @argv: arguments vector.
-* @n: row of the array.
-*
-* Return: length of the number.
-*/
-
-int _checknum(char *argv[], int n)
+ * print_num - prints a char array to stdout
+ * @str: string being printed using putchar
+ *
+ * Return: Nothing
+ */
+void print_num(char *str)
 {
-	int ln;
+	int i;
 
-	for (ln = 0; argv[n][ln]; ln++)
-		if (!isdigit(argv[n][ln]))
-		{
-			printf("Error\n");
-			exit(98);
-		}
-	return (ln);
+	i = 0;
+
+	while (str[i] != '\0')
+	{
+		_putchar(str[i]);
+	}
+	_putchar('\n');
 }
 
 /**
-* main - Entry point.
-* program that multiplies two positive numbers.
-* @argc: number of arguments.
-* @argv: arguments vector.
-*
-* Return: 0 - success
-*/
-
+ * main - multiplies two numbers
+ * @argc: argument count
+ * @argv: argument values
+ *
+ * Return: 0 if success, 98 if faiure or Error
+ */
 int main(int argc, char *argv[])
 {
-	int ln1, ln2, lnout, add, addl, i, j, k, ca;
-	char *nout;
+	int i, len1, len2, *res;
+	char *newnum;
 
 	if (argc != 3)
-		printf("Error\n"), exit(98);
-	ln1 = _checknum(argv, 1), ln2 = _checknum(argv, 2);
-	_is_zero(argv), lnout = ln1 + ln2, nout = malloc(lnout + 1);
-	if (nout == NULL)
-		printf("Error\n"), exit(98);
-	nout = _initialize_array(nout, lnout);
-	k = lnout - 1, i = ln1 - 1, j = ln2 - 1, ca = addl = 0;
-	for (; k >= 0; k--, i--)
+		print_error();
+	if ((is_num(argv[1]) == 0) || (is_num(argv[2]) == 0))
+		print_error();
+	printf("Number was found to be valid\n");
+	len1 = strlen(argv[1]), len2 = strlen(argv[2]);
+
+	res = malloc(sizeof(int) * (len1 + len2));
+	if (res == NULL)
+		exit(98);
+	printf("Malloc inplemented successfully\n");
+	mul(argv[1], len1, argv[2], len2, res);
+	printf("Number multiplied successfully\n");
+	fflush(stdout);
+
+	i = (len1 + len2); 
+	while (i >= 0 && res[i] == 0)
+	       	i--;
+	fflush(stdout);
+	printf("The value of i is %d", i);
+	if (i < 0)
 	{
-		if (i < 0)
-		{
-			if (addl > 0)
-			{
-				add = (nout[k] - '0') + addl;
-				if (add > 9)
-					nout[k - 1] = (add / 10) + '0';
-				nout[k] = (add % 10) + '0';
-			}
-			i = ln1 - 1, j--, addl = 0, ca++, k = lnout - (1 + ca);
-		}
-		if (j < 0)
-		{
-			if (nout[0] != '0')
-				break;
-			lnout--;
-			free(nout), nout = malloc(lnout + 1), nout = _initialize_array(nout, lnout);
-			k = lnout - 1, i = ln1 - 1, j = ln2 - 1, ca = addl = 0;
-		}
-		if (j >= 0)
-		{
-			add = ((argv[1][i] - '0') * (argv[2][j] - '0')) + (nout[k] - '0') + addl;
-			addl = add / 10, nout[k] = (add % 10) + '0';
-		}
+		print_num("0");
+		fflush(stdout);
+		return (0);
 	}
-	printf("%s\n", nout);
+	
+	newnum = malloc(sizeof(char) * (i + 1));
+	if (newnum == NULL)
+		exit(98);
+	printf("Malloc implemented successfully for newnum\n");
+	to_str(res, newnum, i);
+	printf("printing number\n\n");
+	fflush(stdout);
+	print_num(newnum);
+
 	return (0);
 }
-
