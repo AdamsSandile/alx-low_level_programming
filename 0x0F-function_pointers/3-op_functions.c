@@ -3,11 +3,10 @@
 #include <stdio.h>
 
 /**
- * op_add - ...
- * @a: ...
- * @b: ...
- *
- * Return: ...
+ * op_add - a function that returns the sum of a and b.
+ * @a: an input integer
+ * @b: an input integer
+ * Return: The result to sum a + b.
  */
 int op_add(int a, int b)
 {
@@ -15,11 +14,10 @@ int op_add(int a, int b)
 }
 
 /**
- * op_sub - ...
- * @a: ...
- * @b: ...
- *
- * Return: ...
+ * op_sub - a function that returns the subtract of a and b.
+ * @a: an input integer
+ * @b: an input integer
+ * Return: The result to substract a - b.
  */
 int op_sub(int a, int b)
 {
@@ -27,11 +25,10 @@ int op_sub(int a, int b)
 }
 
 /**
- * op_mul - ...
- * @a: ...
- * @b: ...
- *
- *  Return: ...
+ * op_mul - a function that returns the multiply of a and b.
+ * @a: an input integer
+ * @b: an input integer
+ * Return: The result to multiply a * b.
  */
 int op_mul(int a, int b)
 {
@@ -39,11 +36,10 @@ int op_mul(int a, int b)
 }
 
 /**
- * op_div - ...
- * @a: ...
- * @b: ...
- *
- *  Return: ...
+ * op_div - a function that returns the divide of a and b.
+ * @a: an input integer
+ * @b: an input integer
+ * Return: The result to divide a / b.
  */
 int op_div(int a, int b)
 {
@@ -57,11 +53,10 @@ int op_div(int a, int b)
 }
 
 /**
- * op_mod - ...
- * @a: ...
- * @b: ...
- *
- * Return: ...
+ * op_mod - a function that returns the module of a and b.
+ * @a: an input integer
+ * @b: an input integer
+ * Return: The result to module a % b.
  */
 int op_mod(int a, int b)
 {
@@ -70,6 +65,5 @@ int op_mod(int a, int b)
 		printf("Error\n");
 		exit(100);
 	}
-
 	return (a % b);
 }
