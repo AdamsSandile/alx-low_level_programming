@@ -13,11 +13,11 @@ void print_all(const char * const format, ...);
  * @p: possibility
  * @f: Function to be used
  */
-typedef struct p
+typedef struct print_format
 {
-  char *p;
-  void (*f)(va_list);
-} checker;
+    char *format;
+    void (*f)(va_list);
+} print_format_t;
 
 void print_c(va_list);
 void print_i(va_list);
@@ -25,4 +25,5 @@ void print_f(va_list);
 void print_s(va_list);
 
 #endif
+
 
