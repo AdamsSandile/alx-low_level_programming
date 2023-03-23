@@ -1,28 +1,38 @@
+nes (30 sloc)  611 Bytes
+
 #include "variadic_functions.h"
+#include <stdio.h>
+#include <stdarg.h>
 
 /**
- * print_strings - Print numbers using a separator
- * @separator: The string separator
- * @n: The quantity of numbers
- * @...: The list of numbers
+ * print_strings - prints strings.
+ * @separator: string to be printed between the strings.
+ * @n: number of strings passed to the function.
  *
- * Return: Nothing
+ * Return: no return.
  */
 void print_strings(const char *separator, const unsigned int n, ...)
 {
-va_list valist;
-unsigned int i;
-char *p;
+	va_list valist;
+	unsigned int i;
+	char *str;
 
-va_start(valist, n);
+	va_start(valist, n);
 
-for (i = 0; i < n; i++)
-{
-if (separator != NULL && i != 0)
-printf("%s", separator);
-p = va_arg(valist, char *);
-printf("%s", (p == NULL) ? "(nil)" : p);
-}
-printf("\n");
-va_end(valist);
+	for (i = 0; i < n; i++)
+	{
+		str = va_arg(valist, char *);
+
+		if (str)
+			printf("%s", str);
+		else
+			printf("(nil)");
+
+		if (i < n - 1)
+			if (separator)
+				printf("%s", separator);
+	}
+
+	printf("\n");
+	va_end(valist);
 }
