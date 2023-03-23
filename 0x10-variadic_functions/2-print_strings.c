@@ -1,4 +1,3 @@
-nes (30 sloc)  611 Bytes
 
 #include "variadic_functions.h"
 #include <stdio.h>
